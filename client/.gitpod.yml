@@ -1,7 +1,0 @@
-
-ports:
-  - port: 3000
-    onOpen: open-preview
-tasks:
-  - before: if [[ -z "$experiment" ]]; fi
-    command: npm install && npm start

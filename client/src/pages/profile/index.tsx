@@ -1,21 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import { Link , useHistory} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FiPower, FiTrash2 } from 'react-icons/fi';
 
 import api from '../../services/api';
 
-import {FiPower, FiTrash2} from 'react-icons/fi';
-import './styles.css';
-import logoImg from '../../assets/logo.svg'
+import styles from './Profile.module.scss';
+
 
 export default function Profile(){
     const [incidents, setIncidents] = useState([]);
-    const ongName = localStorage.getItem('ongName'),
-        ongId = localStorage.getItem('ongId'),
-        history = useHistory();
+    const [ongName, setOngName] = useState('');
+    const [ongId, setOngId] = useState('');
+    const routes = useRouter();
 
-    if(!ongId){
-        history.push('/');
-    }
+    useEffect(() => {
+        setOngName(localStorage.getItem('ongName') || '');
+        setOngId(localStorage.getItem('ongId') || '');
+
+        if(!ongId){
+            routes.push('/');
+        }
+    }, [])
 
     useEffect(() => {
         api.get('profile', {
@@ -29,7 +35,7 @@ export default function Profile(){
 
     async function handleDeleteIncident(id){
         try {
-            await api.delete(`inscidents/${id}`, {
+            await api.delete(`incidents/${id}`, {
                 headers: {
                     Authorization: ongId
                 }
@@ -43,16 +49,20 @@ export default function Profile(){
 
     function handleLogout(){
         localStorage.clear();
-        history.push('/');
+        routes.push('/');
     }
 
     return (
-        <div className="profile-conteiner">
+        <div className={styles.profile_container}>
             <header>
-                <img src={logoImg} alt="Be The Hero" />
+                <img src="/logo.svg" alt="BeTheHero" />
                 <span>Bem vinda, {ongName}</span>
 
-                <Link className="button" to="/caso/novo">Cadastrar novo caso</Link>
+                <Link href="/incident/new">
+                    <a href="/incident/new" className="button" >
+                        Cadastrar novo caso
+                    </a>
+                </Link>
                 <button type="button" onClick={handleLogout}>
                     <FiPower size={18} color="#E02041" />
                 </button>
@@ -76,7 +86,6 @@ export default function Profile(){
                         <button type="button" onClick={() => handleDeleteIncident(incident.id)}>
                             <FiTrash2 size={20} color="#a8a8b3" />
                         </button>
-
                     </li>
                     ))}
             </ul>
