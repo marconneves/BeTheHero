@@ -25,7 +25,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t $REPO:develop ./server/
       - name: Publish Docker image
-        run: docker push $REPO
+        run: docker push $REPO:develop
 
   redeploy:
     name: Redeploy webhook call
