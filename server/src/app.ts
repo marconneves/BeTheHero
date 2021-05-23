@@ -1,14 +1,14 @@
-const express = require('express');
-const cors = require('cors');
-const {errors} = require('celebrate');
-const routes = require('./routes');
-const Sentry = require('./config/sentry');
+import express from 'express';
+import cors from 'cors';
+import {errors} from 'celebrate';
+import routes from './routes';
+import Sentry from './config/sentry';
 
 const app = express();
 
 app.use(cors())
 app.use(express.json());
-app.use(routes);
+routes(app);
 app.use(errors());
 app.use((request, response) => {
     const transaction = Sentry.startTransaction(
@@ -47,7 +47,7 @@ app.use((request, response) => {
 /**
  * Tipos de parâmetros:
  * 
- * Query Parans: Parametros enviados na rota nomeados (Famozos GET do php) (Server para filtros, paginação)
+ * Query Params: Parâmetros enviados na rota nomeados (Famozos GET do php) (Server para filtros, paginação)
  * Route Params: Parâmetros usados para identificar recursos
  * Request Body: 
  */
@@ -57,5 +57,5 @@ app.use((request, response) => {
   * NoSQL: MongoDB, CouchDB, etc
   */
 
-module.exports = app;
+export default app;
 

@@ -1,10 +1,14 @@
-const connection = require('../database/connection');
-const Sentry = require('../config/sentry');
+import { Request, Response } from 'express';
 
-module.exports = {
-    index: async (request, response) => {
-        const ong_id = request.headers.authorization;
+import connection from '../database/connection';
+import Sentry from '../config/sentry';
+
+export default {
+    async index(request: Request, response: Response){
+        const ong_id = request.headers.authorization as string;
+
         Sentry.setUser({ id: ong_id });
+
         const transaction = Sentry.startTransaction(
             {
                 op: "profile_index",

@@ -1,6 +1,6 @@
-const generateUniqueId = require('../../src/utils/generateUniqueId');
+import generateUniqueId from '../../src/utils/generateUniqueId';
 
-describe('Genereta Unique ID', () => {
+describe('Generate Unique ID', () => {
     it('should generate an unique ID', () => {
         const id = generateUniqueId(4);
 

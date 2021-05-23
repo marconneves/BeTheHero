@@ -1,9 +1,11 @@
-const connection = require('../database/connection');
-const Sentry = require('../config/sentry');
+import { Request, Response } from 'express';
 
-module.exports = {
-    create: async (request, response) => {
-        const {id} = request.body;
+import connection from '../database/connection';
+import Sentry from '../config/sentry';
+
+export default {
+    async create(request: Request, response: Response){
+        const { id } = request.body;
 
         Sentry.setUser({ id });
         const transaction = Sentry.startTransaction(

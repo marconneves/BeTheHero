@@ -1,10 +1,11 @@
+import { Request, Response } from 'express';
 
-const connection = require('../database/connection');
-const Sentry = require('../config/sentry');
-const generateUniqueId = require('../utils/generateUniqueId');
+import connection from '../database/connection';
+import Sentry from '../config/sentry';
+import generateUniqueId from '../utils/generateUniqueId';
 
-module.exports = {
-    index: async (request, response) => {
+export default {
+    async index(request: Request, response: Response){
         const transaction = Sentry.startTransaction({
             op: "ong_index",
             name: "List ongs",
@@ -21,7 +22,7 @@ module.exports = {
             transaction.finish();
         }
     },
-    create: async (request, response) => {
+    async create(request: Request, response: Response){
         const transaction = Sentry.startTransaction({
             op: "ong_create",
             name: "Create a new ong",

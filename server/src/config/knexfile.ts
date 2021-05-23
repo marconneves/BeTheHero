@@ -1,8 +1,8 @@
 // Update with your config settings.
-const path = require('path');
-require('dotenv').config();
-module.exports = {
+import path from 'path';
+import 'dotenv/config';
 
+export default {
   development: {
     migrations: {
         directory: path.resolve(__dirname, 'src', 'database', 'migrations')

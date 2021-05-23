@@ -1,9 +1,15 @@
-const connection = require('../database/connection');
-const Sentry = require('../config/sentry');
+import { Request, Response } from 'express';
 
-module.exports = {
-    index:  async (request, response) => {
-        const {page =1 } = request.query;
+import connection from '../database/connection';
+import Sentry from '../config/sentry';
+
+type IndexProps = {
+    page: number;
+}
+
+export default {
+    async index(request: Request, response: Response){
+        const { page = 1 } = (request.query as unknown) as IndexProps;
         const transaction = Sentry.startTransaction({
             op: "incident_index",
             name: "List incidents",
@@ -13,14 +19,16 @@ module.exports = {
         });
 
         try {
-            const [count] = await connection('incidents').count();
+            const { count } = await connection('incidents').select({
+                count: connection.raw('count(*)')
+            }).first()
     
             const incidents = await connection('incidents')
                 .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
                 .limit(5)
                 .offset((page-1)*5)
                 .select(['incidents.*', 'ongs.name', 'ongs.email', 'ongs.whatsapp', 'ongs.city', 'ongs.uf']);
-            response.header('X-Total-Count', count['count(*)']);
+            response.header('X-Total-Count', count);
         
             return response.json(incidents);
         } catch (error) {
@@ -30,8 +38,8 @@ module.exports = {
             transaction.finish();
         }
     },
-    create: async (request, response) => {
-        const {title, description, value} = request.body,
+    async create(request: Request, response: Response){
+        const { title, description, value } = request.body,
             ong_id = request.headers.authorization;
         
         const transaction = Sentry.startTransaction({
@@ -43,8 +51,7 @@ module.exports = {
         });
 
         try {
-            
-            const [id] = await connection('incidents').insert({
+            const [ id ] = await connection('incidents').insert({
                 title,
                 description,
                 value,
@@ -60,7 +67,7 @@ module.exports = {
         }
 
     },
-    delete: async (request, response) => {
+    async delete(request: Request, response: Response){
         const {id} = request.params,
             ong_id = request.headers.authorization;
 
@@ -94,6 +101,5 @@ module.exports = {
         } finally {
             transaction.finish();
         }
-
     }
 };
