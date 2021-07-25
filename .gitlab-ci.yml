@@ -1,0 +1,30 @@
+image: docker:latest
+services:
+  - docker:dind
+
+stages:
+  - build
+
+variables:
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+  GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+
+build:develop:
+  stage: build
+  tags:
+    - dind
+  script:
+    - docker build -t $REPO:develop ./server/
+    - docker push $REPO:develop
+  only:
+    - develop
+
+build:production:
+  stage: build
+  tags:
+    - dind
+  script:
+    - docker build --pull -t $BASE_IMAGE:latest ./server/
+    - docker push $BASE_IMAGE:latest
+  only:
+    - main
