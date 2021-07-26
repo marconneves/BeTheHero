@@ -5,8 +5,6 @@
   extends:
     - .default
   before_script:
-    - echo "$CI_COMMIT_REF_NAME"
-    - echo "$CI_COMMIT_BRANCH"
     - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
 
 
