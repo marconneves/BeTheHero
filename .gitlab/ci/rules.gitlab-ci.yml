@@ -2,55 +2,56 @@
 # Conditions #
 ##############
 .if-is-all-commit: &if-is-all-commit
-  if: '$CI_COMMIT_BRANCH'
+  if: '$CI_COMMIT_REF_NAME'
 
-.if-not-canonical-namespace: &if-not-canonical-namespace
-  if: '$CI_PROJECT_NAMESPACE !~ /^nlw-study?($\/)/'
+# .if-not-canonical-namespace: &if-not-canonical-namespace
+#   if: '$CI_PROJECT_NAMESPACE !~ /^nlw-study?($\/)/'
 
-.if-default-branch: &if-default-branch
-  if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+.if-not-is-production-branch: &if-not-is-production-branch
+  if: '$CI_COMMIT_BRANCH == "main"'
+
+.if-not-is-develop-branch: &if-not-is-develop-branch
+  if: '$CI_COMMIT_BRANCH == "develop"'
 
 .if-default-branch-or-tag: &if-default-branch-or-tag
   if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG'
 
 .if-auto-deploy-branches: &if-auto-deploy-branches
-  if: '$CI_COMMIT_BRANCH =~ /^\d+-\d+-auto-deploy-\d+$/'
+  if: '$CI_COMMIT_REF_NAME =~ /^\d+-\d+-auto-deploy-\d+$/'
 
+.if-is-a-push: &if-is-a-push
+  if: '$CI_PIPELINE_SOURCE == "push"'
+
+.if-is-merge-request: &if-is-merge-request
+  if: '$CI_MERGE_REQUEST_IID'
 
 
 ####################
 # Changes patterns #
 ####################
 
-.if-not-is-change-in-server: &if-not-is-change-in-server
+.if-change-in-server: &if-change-in-server
   - "server/*"
 
 # 
 
 
 ##############################
-# Rules to filter a projects #
+# Build a server repository #
 ##############################
 
-.filter:rules:server:
+.filter:rules:push-production-branch:
   rules:
-    - <<: *if-is-all-commit
-      changes: *if-not-is-change-in-server
+    - <<: *if-is-a-push
+      changes: *if-change-in-server
+    - <<: *if-not-is-production-branch
+    - <<: *if-is-merge-request
+      when: never
 
-.filter:rules:default-branch:
+.filter:rules:push-develop-branch:
   rules:
-    - <<: *if-default-branch
-
-
-##########################
-# Setup rules of project #
-##########################
-
-.setup:rules:dont-interrupt-me:
-  rules:
-    - <<: *if-default-branch-or-tag
-      allow_failure: true
-    - <<: *if-auto-deploy-branches
-      allow_failure: true
-    - when: manual
-      allow_failure: true
+    - <<: *if-is-a-push
+      changes: *if-change-in-server
+    - <<: *if-not-is-develop-branch
+    - <<: *if-is-merge-request
+      when: never

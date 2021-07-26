@@ -1,30 +1,28 @@
 .base-image-build:
   tags:
-    - dind
-  services:
-    - docker:dind
+    - ubuntu
+  image: ubuntu:latest
   extends:
     - .default
   before_script:
-    - docker login -u $DOCKER_USER -p $DOCKER_PASS
+    - echo "$CI_COMMIT_REF_NAME"
+    - echo "$CI_COMMIT_BRANCH"
+    - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
 
 
 build-images:develop:
   extends:
     - .base-image-build
-    - .filter:rules:server
+    - .filter:rules:push-develop-branch
   stage: build
   script:
     - docker build -t $DOCKER_REPOSITORY:develop ./server/
     - docker push $DOCKER_REPOSITORY:develop
-  only:
-    - develop
 
 build-images:latest:
   extends:
     - .base-image-build
-    - .filter:rules:server
-    - .filter:rules:default-branch
+    - .filter:rules:push-production-branch
   stage: build
   script:
     - docker build -t $DOCKER_REPOSITORY:latest ./server/

@@ -1,6 +1,6 @@
 {
     "name": "backend",
-    "version": "1.0.18",
+    "version": "1.1.12",
     "description": "![BeTheHero][logo-image]",
     "main": "index.js",
     "scripts": {

@@ -1,6 +1,5 @@
 
 stages:
-  - sync
   # - test
   - build
 
@@ -19,11 +18,11 @@ workflow:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     # For `$CI_COMMIT_BRANCH` is main, set a service name of servers.
     - if: '$CI_COMMIT_BRANCH == "main"'
-      variable:
+      variables:
         TYPE_PIPELINE: "production"
     # For `$CI_COMMIT_BRANCH` not is main, set a service name of servers.
     - if: '$CI_COMMIT_BRANCH != "develop"'
-      variable:
+      variables:
         TYPE_PIPELINE: "sandbox"
     # For tags, create a pipeline.
     - if: '$CI_COMMIT_TAG'
@@ -40,6 +39,8 @@ variables:
   GCP_SERVICE_NAME: "$GCP_SERVICE_NAME-$TYPE_PIPELINE"
 
   DOCKER_REPOSITORY: $HUB_DOCKER_REPOSITORY
+  DOCKER_USER: $HUB_DOCKER_USER
+  DOCKER_TOKEN: $HUB_DOCKER_TOKEN
 
 include:
   - local: .gitlab/ci/*.gitlab-ci.yml
