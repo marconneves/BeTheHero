@@ -1,7 +1,7 @@
-import knex from 'knex';
+import knex, { Knex } from 'knex';
 import configuration from '../config/knexfile';
 
-let config = {} as knex.Config;
+let config = {} as Knex.Config;
 
 if(process.env.NODE_ENV === 'production'){
     config = configuration.production;

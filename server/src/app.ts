@@ -1,15 +1,19 @@
 import express from 'express';
 import cors from 'cors';
-import {errors} from 'celebrate';
+import { errors } from 'celebrate';
 import routes from './routes';
 import Sentry from './config/sentry';
 
 const app = express();
 
-app.use(cors())
 app.use(express.json());
+
+app.use(cors())
+
 routes(app);
+
 app.use(errors());
+
 app.use((request, response) => {
     const transaction = Sentry.startTransaction(
         {
