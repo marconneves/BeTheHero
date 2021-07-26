@@ -1,0 +1,3 @@
+.default:
+  # Default job timeout set to 30m
+  timeout: 30m

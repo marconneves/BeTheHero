@@ -1,0 +1,56 @@
+##############
+# Conditions #
+##############
+.if-is-all-commit: &if-is-all-commit
+  if: '$CI_COMMIT_BRANCH'
+
+.if-not-canonical-namespace: &if-not-canonical-namespace
+  if: '$CI_PROJECT_NAMESPACE !~ /^nlw-study?($\/)/'
+
+.if-default-branch: &if-default-branch
+  if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+
+.if-default-branch-or-tag: &if-default-branch-or-tag
+  if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG'
+
+.if-auto-deploy-branches: &if-auto-deploy-branches
+  if: '$CI_COMMIT_BRANCH =~ /^\d+-\d+-auto-deploy-\d+$/'
+
+
+
+####################
+# Changes patterns #
+####################
+
+.if-not-is-change-in-server: &if-not-is-change-in-server
+  - "server/*"
+
+# 
+
+
+##############################
+# Rules to filter a projects #
+##############################
+
+.filter:rules:server:
+  rules:
+    - <<: *if-is-all-commit
+      changes: *if-not-is-change-in-server
+
+.filter:rules:default-branch:
+  rules:
+    - <<: *if-default-branch
+
+
+##########################
+# Setup rules of project #
+##########################
+
+.setup:rules:dont-interrupt-me:
+  rules:
+    - <<: *if-default-branch-or-tag
+      allow_failure: true
+    - <<: *if-auto-deploy-branches
+      allow_failure: true
+    - when: manual
+      allow_failure: true

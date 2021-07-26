@@ -1,0 +1,8 @@
+dont-interrupt-me:
+  extends: .setup:rules:dont-interrupt-me
+  stage: sync
+  interruptible: false
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo "This jobs makes sure this pipeline won't be interrupted! See https://docs.gitlab.com/ee/ci/yaml/#interruptible."

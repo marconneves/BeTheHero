@@ -1,30 +1,45 @@
-image: docker:latest
-services:
-  - docker:dind
 
 stages:
+  - sync
+  # - test
   - build
 
+workflow:
+  rules:
+    # As part of the process of creating RCs automatically, we update stable
+    # branches with the changes of the most recent production deployment. The
+    # merge requests used for this merge a branch release-tools/X into a stable
+    # branch. For these merge requests we don't want to run any pipelines, as
+    # they serve no purpose and will run anyway when the changes are merged.
+    - if: '$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^release-tools\/\d+\.\d+\.\d+-rc\d+$/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^[\d-]+-stable(-ee)?$/'
+      when: never
+    # For merge requests, create a pipeline.
+    - if: '$CI_MERGE_REQUEST_IID'
+    # For `$CI_DEFAULT_BRANCH` branch, create a pipeline (this includes on schedules, pushes, merges, etc.).
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    # For `$CI_COMMIT_BRANCH` is main, set a service name of servers.
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      variable:
+        TYPE_PIPELINE: "production"
+    # For `$CI_COMMIT_BRANCH` not is main, set a service name of servers.
+    - if: '$CI_COMMIT_BRANCH != "develop"'
+      variable:
+        TYPE_PIPELINE: "sandbox"
+    # For tags, create a pipeline.
+    - if: '$CI_COMMIT_TAG'
+    # For stable, auto-deploy, and security branches, create a pipeline.
+    - if: '$CI_COMMIT_BRANCH =~ /^[\d-]+-stable(-ee)?$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^\d+-\d+-auto-deploy-\d+$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^security\//'
+
 variables:
-  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
-  GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  NODE_ENV: "test"
 
-build:develop:
-  stage: build
-  tags:
-    - dind
-  script:
-    - docker build -t $REPO:develop ./server/
-    - docker push $REPO:develop
-  only:
-    - develop
+  GCP_PROJECT: "nlw-base-projects-apps"
+  GCP_REGION: "us-central4"
+  GCP_SERVICE_NAME: "$GCP_SERVICE_NAME-$TYPE_PIPELINE"
 
-build:production:
-  stage: build
-  tags:
-    - dind
-  script:
-    - docker build --pull -t $BASE_IMAGE:latest ./server/
-    - docker push $BASE_IMAGE:latest
-  only:
-    - main
+  DOCKER_REPOSITORY: $HUB_DOCKER_REPOSITORY
+
+include:
+  - local: .gitlab/ci/*.gitlab-ci.yml

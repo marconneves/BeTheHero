@@ -1,0 +1,31 @@
+.base-image-build:
+  tags:
+    - dind
+  services:
+    - docker:dind
+  extends:
+    - .default
+  before_script:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+
+build-images:develop:
+  extends:
+    - .base-image-build
+    - .filter:rules:server
+  stage: build
+  script:
+    - docker build -t $DOCKER_REPOSITORY:develop ./server/
+    - docker push $DOCKER_REPOSITORY:develop
+  only:
+    - develop
+
+build-images:latest:
+  extends:
+    - .base-image-build
+    - .filter:rules:server
+    - .filter:rules:default-branch
+  stage: build
+  script:
+    - docker build -t $DOCKER_REPOSITORY:latest ./server/
+    - docker push $DOCKER_REPOSITORY:latest
