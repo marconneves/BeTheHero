@@ -19,11 +19,11 @@ export default function Home() {
 
         try{
             const response = await api.post('session', { id });
-
-            localStorage.setItem('ongId', id);
-            localStorage.setItem('ongName', response.data.name)
+            console.log(response.data)
+            localStorage.setItem('@BeTheHero:ongId', id);
+            localStorage.setItem('@BeTheHero:ongName', response.data.name)
             
-            router.push('/perfil')
+            router.push('/profile')
         } catch(err){
             alert('Falha no login, tente novamente.');
         }

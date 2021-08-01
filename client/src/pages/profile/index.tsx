@@ -15,15 +15,21 @@ export default function Profile(){
     const routes = useRouter();
 
     useEffect(() => {
-        setOngName(localStorage.getItem('ongName') || '');
-        setOngId(localStorage.getItem('ongId') || '');
+        const orgIdStorage = localStorage.getItem('@BeTheHero:ongId');
 
-        if(!ongId){
+        setOngName(localStorage.getItem('@BeTheHero:ongName') || '');
+        setOngId(orgIdStorage || '');
+
+        if(!orgIdStorage){
             routes.push('/');
         }
     }, [])
 
     useEffect(() => {
+        if(!ongId){
+            return;
+        }
+
         api.get('profile', {
             headers: {
                 Authorization: ongId

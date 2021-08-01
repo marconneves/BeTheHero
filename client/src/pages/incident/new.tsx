@@ -17,9 +17,11 @@ export default function NewIncident() {
     const routes = useRouter();
 
     useEffect(() => {
-        setOngId(localStorage.getItem('ongId') || '');
+        const orgIdStorage = localStorage.getItem('@BeTheHero:ongId');
 
-        if(!ongId){
+        setOngId(orgIdStorage || '');
+
+        if(!orgIdStorage){
             routes.push('/');
         }
     }, []);
