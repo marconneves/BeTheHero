@@ -5,7 +5,7 @@ import 'dotenv/config';
 export default {
   development: {
     migrations: {
-        directory: path.resolve(__dirname, 'src', 'database', 'migrations')
+        directory: path.resolve(__dirname, '..', 'database', 'migrations')
     },
     client: 'mysql',
     connection: {
@@ -19,17 +19,17 @@ export default {
   test: {
     client: 'sqlite3',
     connection: {
-      filename: path.resolve(__dirname, 'src', 'database', 'test.sqlite')
+      filename: path.resolve(__dirname, '..', 'database', 'test.sqlite')
     },
     migrations: {
-      directory: path.resolve(__dirname, 'src', 'database', 'migrations')
+      directory: path.resolve(__dirname, '..', 'database', 'migrations')
     },
     useNullAsDefault: true,
   },
 
   production: {
     migrations: {
-        directory: path.resolve(__dirname, 'src', 'database', 'migrations')
+        directory: path.resolve(__dirname, '..', 'database', 'migrations')
     },
     client: 'mysql',
     connection: {

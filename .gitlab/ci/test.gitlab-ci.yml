@@ -10,6 +10,8 @@ jest-server:
     - docker:dind
   tags:
     - dind
+  extends:
+    - .filter:rules:test-jest-server
   script:
     - cd ./server
     - *yarn-install

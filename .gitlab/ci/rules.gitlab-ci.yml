@@ -39,6 +39,11 @@
 # Test a code_quality #
 #######################
 
+.filter:rules:test-jest-server:
+  rules:
+    - <<: *if-is-all-commit
+      changes: *if-change-in-server
+
 .filter:rules:test-code-quality:
   rules:
     - <<: *if-is-feat-or-fix-to-develop
