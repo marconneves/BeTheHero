@@ -32,7 +32,7 @@ s
   ## :minidisc: Descrição
   O projeto é uma plataforma para que ongs possão fazer uma conta (Versão desktop), e poder cadastrar os casos que precisa de ajuda, exemplo titulo, descrição e o valor da ajuda, e após o cadastro, estes casos fica disponivel no app mobile para que as pessoas possão visualizar os casos da região e enviar um email ou mensagem no whatsapp para a ong, assim podendo a ajudar.
 
-  Ele foi publicado em: https://server-bethehero.marconwillian.dev, sendo que sua versão em development esta na porta :8080.
+  Ele foi publicado em: https://api.bethehero.marcon.run.
   ****
   Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/marconwillian/BeTheHero_backend/blob/master/LICENSE) para mais detalhes.
 

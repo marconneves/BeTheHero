@@ -11,10 +11,8 @@
 
   ****
   ## Visualize o resultado
-  - backend: [https://server-bethehero.marconwillian.dev](https://server-bethehero.marconwillian.dev)
-  - backend develop: [https://server-bethehero.marconwillian.dev:8080](https://server-bethehero.marconwillian.dev:8080)
-  - frontend: [https://bethehero.marconwillian.dev](https://bethehero.marconwillian.dev)
-  - frontend develop: [https://develop-bethehero.marconwillian.dev](https://develop-bethehero.marconwillian.dev)
+  - backend: [https://api.bethehero.marcon.run](https://api.bethehero.marcon.run)
+  - frontend: [https://bethehero.marconwillian.dev](https://bethehero.marcon.run)
   - mobile: [https://play.google.com/store/apps/details?id=dev.mh4sh.betheheros](https://play.google.com/store/apps/details?id=dev.mh4sh.betheheros)
   
   ***
