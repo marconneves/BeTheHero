@@ -1,27 +1,14 @@
-.base-image-build:
-  tags:
-    - ubuntu
-  image: ubuntu:latest
-  extends:
-    - .default
-  before_script:
-    - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
+variables:
+  DOCKER_DRIVER: overlay
 
-
-build-images:develop:
+build:gcp:
+  needs: ["jest"]
   extends:
-    - .base-image-build
-    - .filter:rules:push-develop-branch
+    - .default-ubuntu
+    - .auth-gcp
+    - .filter:rules:build-image-gcp
   stage: build
   script:
-    - docker build -t $DOCKER_REPOSITORY:develop ./server/
-    - docker push $DOCKER_REPOSITORY:develop
-
-build-images:latest:
-  extends:
-    - .base-image-build
-    - .filter:rules:push-production-branch
-  stage: build
-  script:
-    - docker build -t $DOCKER_REPOSITORY:latest ./server/
-    - docker push $DOCKER_REPOSITORY:latest
+    - gcloud auth configure-docker
+    - docker build -t $GCP_IMAGE ./server --build-arg INTERNAL_PACKAGES_GITLAB=$INTERNAL_PACKAGES_GITLAB
+    - docker push $GCP_IMAGE
