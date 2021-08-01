@@ -2,7 +2,7 @@ variables:
   DOCKER_DRIVER: overlay
 
 build:gcp:
-  needs: ["jest"]
+  needs: ["jest-server"]
   extends:
     - .default-ubuntu
     - .auth-gcp
