@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "HooPay Documentation",
+    "description": "This is an API HooPay Platform",
+    "version": "0.12.3",
+    "contact": {
+      "email": "mark@hoopay.com.br"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    },
+    {
+      "url": "https://api.bethehero.projects.themark.dev"
+    }
+  ],
+  "paths": {
+    "/ongs": {
+      "post": {
+        "tags": [
+          "Organization"
+        ],
+        "summary": "Register a new organization",
+        "description": "Create a organization to login in system",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "whatsapp": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "uf": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Marcon Ong",
+                  "email": "oi@mh4sh.dev",
+                  "whatsapp": "11999999999",
+                  "city": "São Paulo",
+                  "uf": "SP"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "XApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Checkout - Public",
+      "description": "Checkout Routes"
+    },
+    {
+      "name": "Accounts",
+      "description": "Account of user"
+    }
+  ]
+}
