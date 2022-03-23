@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "version": "0.3.2",
+  "name": "@bethehero/client",
+  "version": "0.4.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,18 +8,22 @@
     "start": "next start"
   },
   "dependencies": {
-    "@sentry/nextjs": "^6.10.0",
-    "axios": "^0.21.1",
-    "next": "11.0.1",
+    "@hookform/resolvers": "^2.8.8",
+    "@sentry/nextjs": "^6.19.1",
+    "axios": "^0.26.1",
+    "next": "^12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "^4.2.0",
-    "sass": "^1.37.0"
+    "react-hook-form": "^7.28.1",
+    "react-icons": "^4.3.1",
+    "react-spinners": "^0.11.0",
+    "sass": "^1.49.9",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/node": "^16.4.9",
-    "@types/react": "^17.0.15",
-    "@types/sass": "^1.16.1",
-    "typescript": "^4.3.5"
+    "@types/node": "^17.0.22",
+    "@types/react": "^17.0.42",
+    "@types/sass": "^1.43.1",
+    "typescript": "^4.6.2"
   }
 }

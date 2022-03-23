@@ -3,32 +3,46 @@ import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Head from 'next/head';
 import { FiArrowLeft } from 'react-icons/fi';
+import BounceLoader from "react-spinners/BounceLoader";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
 import api from '../../services/api';
 
 import styles from './Register.module.scss';
+import { useForm } from 'react-hook-form';
+
+interface FormData {
+    name: string;
+    email: string;
+    whatsapp: string;
+    city: string;
+    uf: string;
+}
+
+const schema = yup.object({
+    name: yup.string().required('O nome é obrigatório'),
+    email: yup.string().email('Insira um e-mail válido').required('O e-mail é obrigatório'),
+    whatsapp: yup.string().required('O whatsapp é obrigatório'),
+    city: yup.string().required('A cidade é obrigatória'),
+    uf: yup.string().required('O estado é obrigatório'),
+  }).required();
 
 export default function Register(){
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [whatsapp, setWhatsapp] = useState("");
-    const [city, setCity] = useState("");
-    const [uf, setUf] = useState("");
+    const { register, handleSubmit, formState: {isSubmitting, errors} } = useForm({
+        resolver: yupResolver(schema)
+    })
 
     const router = useRouter();
 
-    async function handleRegister(event: FormEvent) {
-        event.preventDefault();
-
-        const data = (
-            {name, email, whatsapp, city, uf}
-        )
+    async function handleRegister(event: FormData) {
 
         try {
-            const response = await api.post('ongs', data);
+            const response = await api.post('/ongs', event);
             alert(`Seu ID de acesso: ${response.data.id}`);
             router.push('/');
         } catch (err){
+            console.log(err)
             alert('Erro no cadastro, tente novamente.')
         }
     }
@@ -53,37 +67,37 @@ export default function Register(){
 
                     </section>
 
-                    <form onSubmit={handleRegister}>
+                    <form onSubmit={handleSubmit(handleRegister)}>
                         <input
                             placeholder="Nome da ONG"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
+                            className={errors.name ? 'error' : ''}
+                            {...register('name')}
                         />
                         <input 
                             type="email" placeholder="E-mail"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
+                            className={errors.email ? 'error' : ''}
+                            {...register('email')}
                         />
                         <input 
                             placeholder="WhatsApp"
-                            value={whatsapp}
-                            onChange={e => setWhatsapp(e.target.value)}
+                            className={errors.whatsapp ? 'error' : ''}
+                            {...register('whatsapp')}
                         />
 
                         <div className={styles.input_group}>
                             <input 
                                 placeholder="Cidade"
-                                value={city}
-                                onChange={e => setCity(e.target.value)}
+                                className={errors.city ? 'error' : ''}
+                                {...register('city')}
                             />
                             <input 
                                 placeholder="UF" style={{width: 80 }}
-                                value={uf}
-                                onChange={e => setUf(e.target.value)}
+                                className={errors.uf ? 'error' : ''}
+                                {...register('uf')}
                             />
                         </div>
 
-                        <button className="button" type="submit">Cadastrar</button>
+                        <button className="button" type="submit" disabled={isSubmitting}>{isSubmitting ? <BounceLoader color="#FFF" size={20} /> : "Cadastrar" }</button>
                     </form>
                 </div>
             </div>
