@@ -12,21 +12,9 @@ export default {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE_DEVELOPMENT
+      database: process.env.DB_DATABASE
     }
   },
-
-  test: {
-    client: 'sqlite3',
-    connection: {
-      filename: path.resolve(__dirname, '..', 'database', 'test.sqlite')
-    },
-    migrations: {
-      directory: path.resolve(__dirname, '..', 'database', 'migrations')
-    },
-    useNullAsDefault: true
-  },
-
   production: {
     migrations: {
       directory: path.resolve(__dirname, '..', 'database', 'migrations')
@@ -36,7 +24,7 @@ export default {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE_PRODUCTION
+      database: process.env.DB_DATABASE
     }
   }
 };
