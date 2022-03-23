@@ -35,10 +35,10 @@ export default function Register(){
 
     const router = useRouter();
 
-    async function handleRegister(event: FormData) {
+    async function handleRegister(data: FormData) {
 
         try {
-            const response = await api.post('/ongs', event);
+            const response = await api.post('/ongs', data);
             alert(`Seu ID de acesso: ${response.data.id}`);
             router.push('/');
         } catch (err){

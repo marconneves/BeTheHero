@@ -51,15 +51,5 @@
                 }
             }
         }
-
-        button {
-            &:disabled {
-                background: darken(#e02041, 5%);
-            }
-
-            span {
-                top: -5px;
-            }
-        }
     }
 }

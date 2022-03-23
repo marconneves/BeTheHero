@@ -78,6 +78,14 @@ form textarea {
     &:hover {
         filter: brightness(90%)
     }
+    &:disabled {
+        background: darken(#e02041, 5%);
+    }
+
+    span {
+        top: -5px;
+        left: -5px;
+    }
 }
 
 .back_link {
