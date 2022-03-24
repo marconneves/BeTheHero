@@ -27,13 +27,21 @@ export default (app: Application) => {
     return res.sendFile(path.resolve('src', 'docs', 'swagger.json'));
   });
 
-  routes.post('/session', SessionController.create);
+  routes.post(
+    '/session',
+    celebrate({
+      [Segments.BODY]: Joi.object().keys({
+        id: Joi.string().required()
+      })
+    }),
+    SessionController.create
+  );
 
   routes.get(
     '/profile',
     celebrate({
       [Segments.HEADERS]: Joi.object({
-        authorization: Joi.string().required()
+        'x-api-key': Joi.string().required()
       }).unknown()
     }),
     ProfileController.index
@@ -60,7 +68,7 @@ export default (app: Application) => {
     '/incidents',
     celebrate({
       [Segments.HEADERS]: Joi.object({
-        authorization: Joi.string().required()
+        'x-api-key': Joi.string().required()
       }).unknown(),
       [Segments.BODY]: Joi.object().keys({
         title: Joi.string().required(),
@@ -73,6 +81,9 @@ export default (app: Application) => {
   routes.delete(
     '/incidents/:id',
     celebrate({
+      [Segments.HEADERS]: Joi.object({
+        'x-api-key': Joi.string().required()
+      }).unknown(),
       [Segments.PARAMS]: Joi.object().keys({
         id: Joi.number().required()
       })

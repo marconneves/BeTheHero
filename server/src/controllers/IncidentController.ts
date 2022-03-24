@@ -49,7 +49,7 @@ export default {
   },
   async create(request: Request, response: Response) {
     const { title, description, value } = request.body;
-    const ong_id = request.headers.authorization;
+    const ong_id = request.headers['x-api-key'];
 
     const transaction = Sentry.startTransaction({
       op: 'incident_create',
@@ -77,7 +77,7 @@ export default {
   },
   async delete(request: Request, response: Response) {
     const { id } = request.params;
-    const ong_id = request.headers.authorization;
+    const ong_id = request.headers['x-api-key'];
 
     const transaction = Sentry.startTransaction({
       op: 'incident_delete',

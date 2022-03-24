@@ -17,6 +17,59 @@
     }
   ],
   "paths": {
+    "/session": {
+      "post": {
+        "tags": [
+          "session"
+        ],
+        "summary": "Create a session",
+        "description": "Create a session",
+        "operationId": "createSession",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "93750f15"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "Get profile",
+        "description": "Get profile",
+        "operationId": "getProfile",
+        "security": [
+          {
+            "XApiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
     "/ongs": {
       "post": {
         "tags": [
@@ -60,6 +113,105 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Organization"
+        ],
+        "summary": "List all organizations",
+        "description": "List all organizations",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        } 
+      }
+    },
+    "/incidents": {
+      "get": {
+        "tags": [
+          "Incident"
+        ],
+        "summary": "List all incidents",
+        "description": "List all incidents",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        } 
+      },
+      "post": {
+        "tags": [
+          "Incident"
+        ],
+        "summary": "Create a new incident",
+        "description": "Create a new incident",
+        "security": [
+          {
+            "XApiKey": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "title": "Incident title",
+                  "description": "Incident description",
+                  "value": "100"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/incidents/{id}": {
+      "delete": {
+        "tags": [
+          "Incident"
+        ],
+        "summary": "Delete an incident",
+        "description": "Delete an incident",
+        "operationId": "deleteIncident",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Incident ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "XApiKey": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
           }
         }
       }

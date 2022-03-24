@@ -5,7 +5,7 @@ import connection from '../database/connection';
 
 export default {
   async index(request: Request, response: Response) {
-    const ong_id = request.headers.authorization as string;
+    const ong_id = request.headers['x-api-key'] as string;
 
     Sentry.setUser({ id: ong_id });
 

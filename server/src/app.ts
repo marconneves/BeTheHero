@@ -1,5 +1,6 @@
 import { errors } from 'celebrate';
 import cors from 'cors';
+import 'express-async-errors';
 import express from 'express';
 
 import Sentry from './config/sentry';
