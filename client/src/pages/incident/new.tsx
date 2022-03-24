@@ -38,7 +38,7 @@ export default function NewIncident() {
         try {
             await api.post('incidents', data, {
                 headers: {
-                    Authorization: ongId
+                    'x-api-key': ongId
                 }
             });
             routes.push('/profile');

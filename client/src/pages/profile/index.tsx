@@ -32,7 +32,7 @@ export default function Profile(){
 
         api.get('profile', {
             headers: {
-                Authorization: ongId
+                'x-api-key': ongId
             }
         }).then(response => {
             setIncidents(response.data);
@@ -43,7 +43,7 @@ export default function Profile(){
         try {
             await api.delete(`incidents/${id}`, {
                 headers: {
-                    Authorization: ongId
+                    'x-api-key': ongId
                 }
             })
 
