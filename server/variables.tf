@@ -34,18 +34,6 @@ variable "ENV_SENTRY_DSN" {
   default = ""
 }
 
-variable "ENV_DB_HOST" {
-  default = ""
-}
-
-variable "ENV_DB_USER" {
-  default = ""
-}
-
-variable "ENV_DB_PASSWORD" {
-  default = ""
-}
-
-variable "ENV_DB_DATABASE" {
+variable "ENV_DATABASE_URL" {
   default = ""
 }

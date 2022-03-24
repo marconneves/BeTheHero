@@ -39,20 +39,8 @@ resource "google_cloud_run_service" "create_cloud_run" {
           value = var.ENV_SENTRY_DSN
         }
         env {
-          name  = "DB_HOST"
-          value = var.ENV_DB_HOST
-        }
-        env {
-          name  = "DB_USER"
-          value = var.ENV_DB_USER
-        }
-        env {
-          name  = "DB_PASSWORD"
-          value = var.ENV_DB_PASSWORD
-        }
-        env {
-          name  = "DB_DATABASE"
-          value = var.ENV_DB_DATABASE
+          name  = "DATABASE_URL"
+          value = var.ENV_DATABASE_URL
         }
       }
     }
