@@ -1,5 +1,6 @@
 import { celebrate, Joi, Segments } from 'celebrate';
 import { Application, Router } from 'express';
+import path from 'path';
 import swaggerUi from 'swagger-ui-express';
 
 import IncidentController from './controllers/IncidentController';
@@ -17,11 +18,14 @@ export default (app: Application) => {
     '/docs',
     swaggerUi.serve,
     swaggerUi.setup(swaggerFile, {
-      customSiteTitle: 'HooPay Documentations',
-      customfavIcon: 'https://avatars.githubusercontent.com/u/100241471?v=4',
+      customSiteTitle: 'BeTheHero Documentations',
       swaggerUrl: '/docs.json'
     })
   );
+
+  routes.get('/docs.json', (req, res) => {
+    return res.sendFile(path.resolve('src', 'docs', 'swagger.json'));
+  });
 
   routes.post('/session', SessionController.create);
 

@@ -2,13 +2,31 @@ version: '3'
 
 services:
   bethehero-server:
+    depends_on:
+      - bethehero-db
     container_name: bethehero-server
     build: .
     ports: 
-      - '3002:3000'
-    command: ["node", "src/server.js"]
+      - '3000:3000'
+    command: ["node", "dist/server.js"]
     environment:
       - NODE_ENV=production
-      - HOST=server-bethehero.marconwillian.dev
+      - HOST=api.bethehero.projects.themark.dev
+      - DATABASE_URL=postgres://project_user:bethehero@bethehero-db:5432/bethehero
     env_file:
       - .env
+  bethehero-db:
+    image: postgres
+    container_name: bethehero-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=project_user
+      - POSTGRES_PASSWORD=bethehero
+      - POSTGRES_DB=bethehero
+    volumes:
+      - betheherodata:/data/postgres
+
+volumes:
+  betheherodata:
+    driver: local

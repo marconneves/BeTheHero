@@ -1,11 +1,11 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "HooPay Documentation",
-    "description": "This is an API HooPay Platform",
-    "version": "0.12.3",
+    "title": "BeTheHero Documentation",
+    "description": "This is an API BeTheHero Platform",
+    "version": "1.1.14",
     "contact": {
-      "email": "mark@hoopay.com.br"
+      "email": "oi@themark.dev"
     }
   },
   "servers": [
@@ -76,12 +76,8 @@
   },
   "tags": [
     {
-      "name": "Checkout - Public",
-      "description": "Checkout Routes"
-    },
-    {
-      "name": "Accounts",
-      "description": "Account of user"
+      "name": "Organization",
+      "description": "Organization as a User"
     }
   ]
 }

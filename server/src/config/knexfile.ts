@@ -7,24 +7,14 @@ export default {
     migrations: {
       directory: path.resolve(__dirname, '..', 'database', 'migrations')
     },
-    client: 'mysql',
-    connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE
-    }
+    client: 'pg',
+    connection: process.env.DATABASE_URL
   },
   production: {
     migrations: {
       directory: path.resolve(__dirname, '..', 'database', 'migrations')
     },
-    client: 'mysql',
-    connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE
-    }
+    client: 'pg',
+    connection: process.env.DATABASE_URL
   }
 };
