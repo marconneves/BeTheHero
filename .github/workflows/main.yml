@@ -119,7 +119,7 @@ jobs:
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
 
           github.issues.createComment({
-            commit_sha: ${{ github.sha }},
+            commit_sha: '${{ github.sha }}',
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: output
