@@ -32,17 +32,19 @@ s
   ## :minidisc: Descrição
   O projeto é uma plataforma para que ongs possão fazer uma conta (Versão desktop), e poder cadastrar os casos que precisa de ajuda, exemplo titulo, descrição e o valor da ajuda, e após o cadastro, estes casos fica disponivel no app mobile para que as pessoas possão visualizar os casos da região e enviar um email ou mensagem no whatsapp para a ong, assim podendo a ajudar.
 
-  Ele foi publicado em: https://api.bethehero.marcon.run.
+  Ele foi publicado em: https://api.bethehero.projects.themark.dev.
+  Sua Documentação é: https://api.bethehero.projects.themark.dev/docs.
   ****
-  Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/marconwillian/BeTheHero_backend/blob/master/LICENSE) para mais detalhes.
+  Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/https://github.com/TheMarkWill/BeTheHero/tree/main/server/LICENSE) para mais detalhes.
 
 
   <!-- Markdown link & img dfn's -->
   [logo-image]: https://i.imgur.com/ftyy51h.png
   [license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
   [license-link]: https://opensource.org/licenses/MIT
-  [repo-frontend]: https://github.com/marconwillian/BeTheHero_frontend
-  [repo-mobile]: https://github.com/marconwillian/BeTheHero_mobile
+  [repo-backend]: https://github.com/TheMarkWill/BeTheHero/tree/main/server#projeto-desenvolvido-na-semana-semana-omnistack-110
+  [repo-frontend]: https://github.com/TheMarkWill/BeTheHero/tree/main/client#projeto-desenvolvido-na-semana-semana-omnistack-110
+  [repo-mobile]: https://github.com/TheMarkWill/BeTheHero/tree/mamainster/mobile#projeto-desenvolvido-na-semana-semana-omnistack-110
   [npm-express]: https://www.npmjs.com/package/express
   [npm-celebrate]: https://www.npmjs.com/package/celebrate
   [npm-knex]: https://www.npmjs.com/package/knex

@@ -11,18 +11,18 @@
 
   ****
   ## Visualize o resultado
-  - backend: [https://api.bethehero.marcon.run](https://api.bethehero.marcon.run)
-  - frontend: [https://bethehero.marconwillian.dev](https://bethehero.marcon.run)
+  - backend: [https://api.bethehero.projects.themark.dev/docs](https://api.bethehero.projects.themark.dev/docs)
+  - frontend: [https://bethehero.projects.themark.dev](https://bethehero.projects.themark.dev)
   - mobile: [https://play.google.com/store/apps/details?id=dev.mh4sh.betheheros](https://play.google.com/store/apps/details?id=dev.mh4sh.betheheros)
   
   ***
-  Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/marconwillian/BeTheHero_backend/blob/master/LICENSE) para mais detalhes.
+  Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/TheMarkWill/BeTheHero/blob/main/LICENSE) para mais detalhes.
 
 
   <!-- Markdown link & img dfn's -->
   [logo-image]: https://i.imgur.com/ftyy51h.png
   [license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
   [license-link]: https://opensource.org/licenses/MIT
-  [repo-backend]: https://github.com/marconwillian/BeTheHero/tree/master/backend#projeto-desenvolvido-na-semana-semana-omnistack-110
-  [repo-frontend]: https://github.com/marconwillian/BeTheHero/tree/master/frontend#projeto-desenvolvido-na-semana-semana-omnistack-110
-  [repo-mobile]: https://github.com/marconwillian/BeTheHero/tree/master/mobile#projeto-desenvolvido-na-semana-semana-omnistack-110
+  [repo-backend]: https://github.com/TheMarkWill/BeTheHero/tree/main/server#projeto-desenvolvido-na-semana-semana-omnistack-110
+  [repo-frontend]: https://github.com/TheMarkWill/BeTheHero/tree/main/client#projeto-desenvolvido-na-semana-semana-omnistack-110
+  [repo-mobile]: https://github.com/TheMarkWill/BeTheHero/tree/mamainster/mobile#projeto-desenvolvido-na-semana-semana-omnistack-110
