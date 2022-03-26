@@ -1,3 +1,4 @@
 client-old/
 node_modules/
 *.env
+mobile_old
