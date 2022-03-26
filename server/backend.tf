@@ -1,5 +1,5 @@
 terraform {
   backend "gcs" {
-    bucket = "marcon-development"
+    bucket = "devops-bucket-projects"
   }
 }
