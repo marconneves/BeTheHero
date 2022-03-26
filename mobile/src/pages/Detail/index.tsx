@@ -40,7 +40,7 @@ export default function Detail() {
 
   async function sendMail() {
     Linking.openURL(
-      `mailto:${incident.title}?subject=Herói do caso: ${incident.title}&body=${message}`,
+      `mailto:${incident.email}?subject=Herói do caso: ${incident.title}&body=${message}`,
     );
   }
 
