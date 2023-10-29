@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@hookform/resolvers": "^2.8.8",
+    "@hookform/resolvers": "^2.9.11",
     "@sentry/nextjs": "^6.19.2",
     "axios": "^0.26.1",
     "next": "^12.1.0",
