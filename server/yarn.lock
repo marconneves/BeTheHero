@@ -1045,10 +1045,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@snyk/protect@^1.883.0":
-  version "1.883.0"
-  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.883.0.tgz#048015d4e0f1c18b6abc7e2773b6374b620bd399"
-  integrity sha512-N/EqG6P/qNYWOfuZAfGS1d7yGwGY4zV7AvKtgTzdhazDt7G/mRLG6czLSWNWGEFYBiMsYRVPHdc5It3bjhmIGw==
+"@snyk/protect@latest":
+  version "1.1271.0"
+  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1271.0.tgz#78d40423ac3b1e268004852504ff0d7b2e5c5a45"
+  integrity sha512-+1zMkS+taUwSDloZPEgVOm8scMgruskSLdHL7kCOp7xf36UP0/X3kb+QbKjvzN0T1JKW7Q6pQkG5LFAA8MKbag==
 
 "@tootallnate/once@1":
   version "1.1.2"
@@ -2105,10 +2105,10 @@ domexception@^2.0.1:
   dependencies:
     webidl-conversions "^5.0.0"
 
-dotenv@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.0.tgz#c619001253be89ebb638d027b609c75c26e47411"
-  integrity sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==
+dotenv@^16.3.1:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.3.2.tgz#3cb611ce5a63002dbabf7c281bc331f69d28f03f"
+  integrity sha512-HTlk5nmhkm8F6JcdXvHIzaorzCoziNQT9mGxLPVXW8wJF1TiGSL60ZGB4gHWabHOaMmWmhvk2/lPHfnBiT78AQ==
 
 dynamic-dedupe@^0.3.0:
   version "0.3.0"
