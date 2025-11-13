@@ -6,50 +6,46 @@ import generateUniqueId from '../utils/generateUniqueId';
 
 export default {
   async index(request: Request, response: Response) {
-    const transaction = Sentry.startTransaction({
+    Sentry.startSpan({
       op: 'ong_index',
       name: 'List ongs'
-    });
+    }, async (span) => {
+      try {
+        const ongs = await connection('ongs').select('*');
 
-    try {
-      const ongs = await connection('ongs').select('*');
-
-      return response.json(ongs);
-    } catch (error) {
-      Sentry.captureException(error);
-      return response.status(400).json({ error: true, message: error });
-    } finally {
-      transaction.finish();
-    }
-  },
-  async create(request: Request, response: Response) {
-    const transaction = Sentry.startTransaction({
-      op: 'ong_create',
-      name: 'Create a new ong',
-      data: {
-        body: request.body
+        return response.json(ongs);
+      } catch (error) {
+        Sentry.captureException(error);
+        return response.status(400).json({ error: true, message: error });
       }
     });
+  },
+  async create(request: Request, response: Response) {
+    Sentry.startSpan({
+      op: 'ong_create',
+      name: 'Create a new ong',
+    }, async (span) => {
+      try {
+        span.setAttributes({
+          body: request.body,
+        });
+        const { name, email, whatsapp, city, uf } = request.body;
+        const id = generateUniqueId(4);
 
-    try {
-      const { name, email, whatsapp, city, uf } = request.body;
-      const id = generateUniqueId(4);
+        await connection('ongs').insert({
+          id,
+          name,
+          email,
+          whatsapp,
+          city,
+          uf
+        });
 
-      await connection('ongs').insert({
-        id,
-        name,
-        email,
-        whatsapp,
-        city,
-        uf
-      });
-
-      return response.json({ id });
-    } catch (error) {
-      Sentry.captureException(error);
-      return response.status(400).json({ error: true, message: error });
-    } finally {
-      transaction.finish();
-    }
+        return response.json({ id });
+      } catch (error) {
+        Sentry.captureException(error);
+        return response.status(400).json({ error: true, message: error });
+      }
+    });
   }
 };
