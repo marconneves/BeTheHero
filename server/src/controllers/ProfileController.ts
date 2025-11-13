@@ -9,22 +9,20 @@ export default {
 
     Sentry.setUser({ id: ong_id });
 
-    const transaction = Sentry.startTransaction({
+    Sentry.startSpan({
       op: 'profile_index',
       name: 'Show profile of ong'
+    }, async (span) => {
+      try {
+        const incidents = await connection('incidents')
+          .where('ong_id', ong_id)
+          .select('*');
+
+        return response.json(incidents);
+      } catch (error) {
+        Sentry.captureException(error);
+        return response.status(400).json({ error: true, message: error });
+      }
     });
-
-    try {
-      const incidents = await connection('incidents')
-        .where('ong_id', ong_id)
-        .select('*');
-
-      return response.json(incidents);
-    } catch (error) {
-      Sentry.captureException(error);
-      return response.status(400).json({ error: true, message: error });
-    } finally {
-      transaction.finish();
-    }
   }
 };

@@ -17,22 +17,20 @@ routes(app);
 app.use(errors());
 
 app.use((request, response) => {
-  const transaction = Sentry.startTransaction({
+  Sentry.startSpan({
     op: 'not_find',
     name: 'Route not found',
-    data: {
-      path: request.path
+  }, (span) => {
+    try {
+      span.setAttributes({
+        path: request.path,
+      });
+      return response.status(404).json({ error: "Sorry can't find that!" });
+    } catch (error) {
+      Sentry.captureException(error);
+      return response.status(400).json({ error: true, message: error });
     }
   });
-
-  try {
-    return response.status(404).json({ error: "Sorry can't find that!" });
-  } catch (error) {
-    Sentry.captureException(error);
-    return response.status(400).json({ error: true, message: error });
-  } finally {
-    transaction.finish();
-  }
 });
 
 /**
